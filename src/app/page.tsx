@@ -31,23 +31,25 @@ export default function Home() {
                 <h1 className='text-white font-bold text-3xl'>BUSCAPECA</h1>
             </header>
 
-            <form className='h-20 mt-3'>
-                <label htmlFor='pesquisar'></label>
-                <input type='text' name='pesquisar' placeholder='Pesquisar item..'/>
+            <div className='max-w-[1240px] my-0 mx-[auto]'>
+                <form className='mt-8'>
+                    <label htmlFor='pesquisar'></label>
+                    <input type='text' name='pesquisar' placeholder='Pesquisar item..' className='outline-0 border-[1px] py-2 px-4 rounded-[8px]' />
 
-                <label htmlFor='submit'></label>
-                <input className='py-2 px-4 bg-red-500 text-white rounded-[8px] hover:bg-red-600 transition' name='submit' type='submit'/>
-            </form>
+                    <input className='py-2 px-4 ml-4 bg-red-500 text-white rounded-[8px] hover:bg-red-600 transition' name='submit' type='submit'/>
+                </form>
 
-            <div className='productList flex gap-8 flex-wrap p-4'>
-                {productList.map((product:ProductProps) => {
-                    return (
-                        <div className='h-72 w-64 border-2 p-4 rounded-2xl'>
-                            <span>{product.nome}</span>
-                        </div>
-                    )
-                })}
+                <div className='productList grid grid-cols-5 gap-6 my-8'>
+                    {productList.map((product:ProductProps) => {
+                        return (
+                            <div className='h-72 border-[1px] p-4 rounded-2xl'>
+                                <span>{product.nome}</span>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
+
 
             <footer className='flex justify-center bg-red-500 py-8'>
                 <h1 className='text-white font-bold'>Trabalho de Conclusão de Curso - 2023</h1>
