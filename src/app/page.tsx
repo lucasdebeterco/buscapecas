@@ -32,7 +32,7 @@ export default function Home() {
             </header>
 
             <div className='max-w-[1240px] my-0 mx-[auto]'>
-                <form className='mt-8'>
+                <form action='/api/scrapper' method='GET' className='mt-8'>
                     <label htmlFor='pesquisar'></label>
                     <input type='text' name='pesquisar' placeholder='Pesquisar item..' className='outline-0 border-[1px] py-2 px-4 rounded-[8px]' />
 
