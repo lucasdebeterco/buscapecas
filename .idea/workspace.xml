@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5d4cbbf-913d-4ad5-aa13-82481f3fa013" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/scrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/scrapper.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +42,16 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "ts.external.directory.path": "C:\\github\\buscapecas\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\github\buscapecas\src\app" />
+      <recent name="C:\github\buscapecas\src" />
+      <recent name="C:\github\buscapecas\src\app\pages" />
       <recent name="C:\github\buscapecas\src\components\Footer" />
       <recent name="C:\github\buscapecas\src\components\Header" />
     </key>
@@ -61,6 +68,7 @@
       <workItem from="1679966500787" duration="594000" />
       <workItem from="1681096373902" duration="13000" />
       <workItem from="1690934466841" duration="733000" />
+      <workItem from="1690935243244" duration="26689000" />
     </task>
     <servers />
   </component>
