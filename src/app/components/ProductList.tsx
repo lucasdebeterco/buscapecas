@@ -4,25 +4,22 @@ import {v4 as uuidv4} from "uuid";
 import {useState} from "react";
 import axios from "axios";
 import {IProduct} from "@/app/types/Product.types";
-import {slugify} from "@/app/utils/slugify";
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
 
-    const getProducts = async function (e: any) {
+    async function getProducts(e: any) {
         axios.get(`http://localhost:3000/api/scrapper?searchItem=${e.target.searchItem.value}`)
             .then((response: any) => {
-                console.log(response)
                 setProductList(response.data)
             }).catch((error: any) => {
                 console.error("Error:", error);
             });
     }
 
-    console.log(productList)
     return (
         <div className='max-w-[1240px] my-0 mx-[auto]'>
-            <form onSubmit={getProducts} className='mt-8'>
+            <form onSubmit={getProducts} className='mt-8' action='#'>
                 <label htmlFor='searchItem'></label>
                 <input type='text'
                        name='searchItem'
