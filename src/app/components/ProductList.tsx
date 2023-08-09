@@ -4,11 +4,13 @@ import {v4 as uuidv4} from "uuid";
 import {useState} from "react";
 import axios from "axios";
 import {IProduct} from "@/app/types/Product.types";
+import Link from "next/link";
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
 
     async function getProducts(e: any) {
+        e.preventDefault();
         axios.get(`http://localhost:3000/api/scrapper?searchItem=${e.target.searchItem.value}`)
             .then((response: any) => {
                 setProductList(response.data)
@@ -33,10 +35,21 @@ export function ProductList() {
                 <div className='productList grid grid-cols-5 gap-6 my-8'>
                     {productList.map((product:IProduct) => {
                         return (
-                            <div key={uuidv4()} className='flex flex-col h-[300px] border-[1px] p-4 rounded-2xl'>
-                                <span className='text-[1rem] font-bold'>{product.title}</span>
-                                <span className='text-[0.75rem] font-bold text-red-600'>{product.price}</span>
-                                <span className='text-[0.75rem]'>{product.link}</span>
+                            <div key={uuidv4()} className='flex flex-col justify-between border-[1px] p-4 rounded-2xl'>
+                                <>
+                                    <div className='flex justify-center items-center h-[180px] w-[180px]'>
+                                        <img className='' src={product.image} />
+                                    </div>
+                                    <span className='text-[0.825rem] font-bold h-[58px] overflow-hidden'>{product.title}</span>
+                                    <span className='text-[0.825rem] font-bold text-red-600 mt-2'>{product.price}</span>
+                                </>
+                                <a
+                                    href={product.link}
+                                    target='_blank'
+                                    className='text-center text-white bg-red-600 mt-6 rounded-[6px] py-[6px] font-bold text-[0.75rem]'
+                                >
+                                    Ver produto na Loja
+                                </a>
                             </div>
                         )
                     })}

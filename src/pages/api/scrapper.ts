@@ -21,12 +21,13 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
         const products: IProduct[] = []
 
         $('.productCard').each((i, el) => {
+            const image = $('.imageCard', el).attr('src')
             const title = $('.nameCard', el).text()
             const price = $('.priceCard', el).text()
-            const link = 'www.kabum.com.br' + $('> a',el).attr('href')
+            const link = 'https://www.kabum.com.br' + $('> a',el).attr('href')
 
             products.push({
-                title, price, link
+                image, title, price, link
             })
         })
 
