@@ -4,7 +4,6 @@ import {v4 as uuidv4} from "uuid";
 import {useState} from "react";
 import axios from "axios";
 import {IProduct} from "@/app/types/Product.types";
-import Link from "next/link";
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])

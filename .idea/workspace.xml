@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a5d4cbbf-913d-4ad5-aa13-82481f3fa013" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/scrapper.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/scrapper.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +69,7 @@
       <workItem from="1681096373902" duration="13000" />
       <workItem from="1690934466841" duration="733000" />
       <workItem from="1690935243244" duration="26689000" />
-      <workItem from="1691376240212" duration="3889000" />
+      <workItem from="1691376240212" duration="9779000" />
     </task>
     <servers />
   </component>
