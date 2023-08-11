@@ -7,15 +7,19 @@ import {IProduct} from "@/app/types/Product.types";
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
+    let [isLoading, setIsLoading] = useState(false)
 
     async function getProducts(e: any) {
         e.preventDefault();
-        axios.get(`http://localhost:3000/api/scrapper?searchItem=${e.target.searchItem.value}`)
+        setIsLoading(true);
+        axios.get(`/api/scrapper?searchItem=${e.target.searchItem.value}`)
             .then((response: any) => {
                 setProductList(response.data)
             }).catch((error: any) => {
                 console.error("Error:", error);
-            });
+            }).finally(() => {
+            setIsLoading(false)
+        });
     }
 
     return (
@@ -30,7 +34,9 @@ export function ProductList() {
                 <input className='py-2 px-4 ml-4 bg-red-500 text-white rounded-[8px] hover:bg-red-600 transition' name='submit' type='submit'/>
             </form>
 
-            {productList.length ? (
+            { isLoading ? (
+                <>Carregando</>
+            ) : productList.length ? (
                 <div className='productList grid grid-cols-5 gap-6 my-8'>
                     {productList.map((product:IProduct) => {
                         return (
@@ -55,6 +61,7 @@ export function ProductList() {
                 </div>
             ) : (
                 <strong>Nenhum resultado encontrado</strong>
+
             )}
         </div>
     )
