@@ -6,7 +6,7 @@ import {ProductList} from "@/app/components/ProductList";
 
 export default function Home() {
     return (
-        <div className='h-screen'>
+        <div>
             <Header />
             <ProductList />
             <Footer />

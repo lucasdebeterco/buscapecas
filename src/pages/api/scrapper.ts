@@ -27,10 +27,11 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
             const link = 'https://www.kabum.com.br' + $('> a',el).attr('href')
 
             products.push({
-                image, title, price, link
+                lojaId: 1, image, title, price, link
             })
         })
 
+        //products.sort((a, b) => (parseFloat(a.price) > parseFloat(b.price)) ? 1: -1);
         res.send(products)
     } else {
         res.send('Method not allowed')
