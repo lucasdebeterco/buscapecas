@@ -3,16 +3,21 @@ import puppeteer from "puppeteer"
 import {slugify} from "../../app/utils/slugify";
 import { NextApiRequest, NextApiResponse } from 'next';
 import {IProduct} from "@/app/types/Product.types";
+const URL = require('url').URL;
 
 export default async function scrapper(req: NextApiRequest, res: NextApiResponse) {
     const kabumUrl = 'https://www.kabum.com.br/busca/'
-    const pichauUrl = 'https://www.pichau.com.br/search?q='
+    //const pichauUrl = 'https://www.pichau.com.br/search?q='
+
+    const pichauUrl = new URL(`https://www.pichau.com.br/search?q=`);
 
     const method  = req.method
     const searchItem = req.query.searchItem && req.query.searchItem.toString()
 
     if(method === 'GET') {
         const products: IProduct[] = []
+
+        const pichauUrl = new URL(`https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`);
 
         //await getProducts(products, kabumUrl, '.productCard')
         await getProducts(products, pichauUrl, '.MuiGrid-item')
@@ -23,11 +28,16 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
         res.send('Method not allowed')
     }
 
-    async function getProducts(products: IProduct[], searchUrl: string, selector: string) {
-        const browser = await puppeteer.launch()
+    async function getProducts(products: IProduct[], searchUrl: any, selector: string) {
+        const browser = await puppeteer.launch({
+            headless: false,
+        })
+
         const page = await browser.newPage()
 
-        await page.goto(searchUrl + slugify(searchItem ? searchItem : ''))
+        await page.goto(searchUrl, {
+            waitUntil: 'networkidle2',
+        })
         const html = await page.content()
         const $ = load(html)
 
