@@ -24,7 +24,7 @@ export function ProductList() {
     }
 
     return (
-        <div className='max-w-[1240px] px-4 my-0 mx-[auto] h-[90vh]'>
+        <div className='max-w-[1240px] px-4 my-0 mx-[auto] min-h-[90vh]'>
             <form onSubmit={getProducts} className='flex column items-center mt-8' action='#'>
                 <label htmlFor='searchItem'></label>
                 <input type='text'
