@@ -1,8 +1,8 @@
 import { load } from 'cheerio'
 import puppeteer from "puppeteer"
-import {slugify} from "../../app/utils/slugify";
+import { slugify } from "../../app/utils/slugify";
 import { NextApiRequest, NextApiResponse } from 'next';
-import {IProduct} from "@/app/types/Product.types";
+import { IProduct } from "@/app/types/Product.types";
 const URL = require('url').URL;
 
 export default async function scrapper(req: NextApiRequest, res: NextApiResponse) {
@@ -14,6 +14,7 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
 
         const kabumUrl = new URL(`https://www.kabum.com.br/busca/${slugify(searchItem ? searchItem : '')}`)
         const pichauUrl = new URL(`https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`)
+        const gkUrl = new URL(`https://www.gkinfostore.com.br/buscar?q=${slugify(searchItem ? searchItem : '')}`)
 
         await getProducts(
             products,
@@ -33,8 +34,17 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
             '.MuiCardContent-root > div > div:nth-child(1) > div > div:nth-child(3)',
             2
         )
+        await getProducts(
+            products,
+            pichauUrl,
+            'listagem-item',
+            '.imagem-produto > img',
+            'a.nome-produto',
+            '.desconto-a-vista',
+            3
+        )
 
-        //products.sort((a, b) => (parseFloat(a.price) > parseFloat(b.price)) ? 1: -1);
+        products.sort((a: IProduct, b: IProduct) => parseFloat(a.price.split('R$ ')[1]) > parseFloat(b.price.split('R$ ')[1]) ? 1: -1)
         res.send(products)
     } else {
         res.send('Method not allowed')
