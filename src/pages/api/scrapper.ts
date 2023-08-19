@@ -5,6 +5,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { IProduct } from "@/app/types/Product.types";
 const URL = require('url').URL;
 
+import chromium from "chrome-aws-lambda";
+import playwright from "playwright-core";
+
 export default async function scrapper(req: NextApiRequest, res: NextApiResponse) {
     const method  = req.method
     const searchItem = req.query.searchItem && req.query.searchItem.toString()
@@ -61,10 +64,15 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
         priceSelector: string,
         idLoja: number
     ) {
-        const browser = await puppeteer.launch({
-            headless: true,
-            args: [`--no-sandbox`, `--headless`, `--disable-gpu`, `--disable-dev-shm-usage`],
-        })
+        const browser = await playwright.chromium.launch({
+            args: [...chromium.args, "--font-render-hinting=none"], // This way fix rendering issues with specific fonts
+            executablePath:
+                process.env.NODE_ENV === "production"
+                    ? await chromium.executablePath
+                    : "/usr/local/bin/chromium",
+            headless:
+                process.env.NODE_ENV === "production" ? chromium.headless : true,
+        });
 
         const page = await browser.newPage()
         //await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36");
