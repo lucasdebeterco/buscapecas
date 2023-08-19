@@ -1,11 +1,9 @@
 import { load } from 'cheerio'
+import puppeteer from "puppeteer"
 import { slugify } from "../../app/utils/slugify";
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IProduct } from "@/app/types/Product.types";
 const URL = require('url').URL;
-
-import chromium from "chrome-aws-lambda";
-import playwright from "playwright-core";
 
 export default async function scrapper(req: NextApiRequest, res: NextApiResponse) {
     const method  = req.method
@@ -14,9 +12,9 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
     if(method === 'GET') {
         const products: IProduct[] = []
 
-        const kabumUrl = `https://www.kabum.com.br/busca/${slugify(searchItem ? searchItem : '')}`
-        const pichauUrl = `https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`
-        const gkUrl = `https://www.gkinfostore.com.br/buscar?q=${slugify(searchItem ? searchItem : '')}`
+        const kabumUrl = new URL(`https://www.kabum.com.br/busca/${slugify(searchItem ? searchItem : '')}`)
+        const pichauUrl = new URL(`https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`)
+        const gkUrl = new URL(`https://www.gkinfostore.com.br/buscar?q=${slugify(searchItem ? searchItem : '')}`)
 
         await getProducts(
             products,
@@ -56,25 +54,20 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
 
     async function getProducts(
         products: IProduct[],
-        searchUrl: string,
+        searchUrl: any,
         selector: string,
         imageSelector:string,
         titleSelector: string,
         priceSelector: string,
         idLoja: number
     ) {
-        const browser = await playwright.chromium.launch({
-            args: [...chromium.args, "--font-render-hinting=none"], // This way fix rendering issues with specific fonts
-            executablePath:
-                process.env.NODE_ENV === "production"
-                    ? await chromium.executablePath
-                    : "C:/Program Files/Google/Chrome/Application/chrome.exe",
-            headless:
-                process.env.NODE_ENV === "production" ? chromium.headless : true,
-        });
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: [`--no-sandbox`, `--headless`, `--disable-gpu`, `--disable-dev-shm-usage`],
+        })
 
         const page = await browser.newPage()
-        //await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36");
+        await page.setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36");
 
         await page.goto(searchUrl)
         const html = await page.content()
