@@ -1,5 +1,4 @@
 import { load } from 'cheerio'
-import puppeteer from "puppeteer"
 import { slugify } from "../../app/utils/slugify";
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IProduct } from "@/app/types/Product.types";
@@ -15,9 +14,9 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
     if(method === 'GET') {
         const products: IProduct[] = []
 
-        const kabumUrl = new URL(`https://www.kabum.com.br/busca/${slugify(searchItem ? searchItem : '')}`)
-        const pichauUrl = new URL(`https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`)
-        const gkUrl = new URL(`https://www.gkinfostore.com.br/buscar?q=${slugify(searchItem ? searchItem : '')}`)
+        const kabumUrl = `https://www.kabum.com.br/busca/${slugify(searchItem ? searchItem : '')}`
+        const pichauUrl = `https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`
+        const gkUrl = `https://www.gkinfostore.com.br/buscar?q=${slugify(searchItem ? searchItem : '')}`
 
         await getProducts(
             products,
@@ -57,7 +56,7 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
 
     async function getProducts(
         products: IProduct[],
-        searchUrl: any,
+        searchUrl: string,
         selector: string,
         imageSelector:string,
         titleSelector: string,
@@ -69,7 +68,7 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
             executablePath:
                 process.env.NODE_ENV === "production"
                     ? await chromium.executablePath
-                    : "/usr/local/bin/chromium",
+                    : "C:/Program Files/Google/Chrome/Application/chrome.exe",
             headless:
                 process.env.NODE_ENV === "production" ? chromium.headless : true,
         });
