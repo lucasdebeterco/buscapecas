@@ -10,44 +10,7 @@ export default async function scrapper(req: NextApiRequest, res: NextApiResponse
     const searchItem = req.query.searchItem && req.query.searchItem.toString()
 
     if(method === 'GET') {
-        const products: IProduct[] = []
-
-        const kabumUrl = new URL(`https://www.kabum.com.br/busca/${slugify(searchItem ? searchItem : '')}`)
-        const pichauUrl = new URL(`https://www.pichau.com.br/search?q=${slugify(searchItem ? searchItem : '')}`)
-        const gkUrl = new URL(`https://www.gkinfostore.com.br/buscar?q=${slugify(searchItem ? searchItem : '')}`)
-
-        await getProducts(
-            products,
-            pichauUrl,
-            'a[data-cy="list-product"]',
-            '.MuiPaper-root > div > div > div > img',
-            'h2.MuiTypography-root',
-            '.MuiCardContent-root > div > div:nth-child(1) > div > div:nth-child(3)',
-            2
-        )
-
-        await getProducts(
-            products,
-            gkUrl,
-            'listagem-item',
-            '.imagem-produto > img',
-            'a.nome-produto',
-            '.desconto-a-vista',
-            3
-        )
-
-        await getProducts(
-            products,
-            kabumUrl,
-            '.productCard',
-            '.imageCard',
-            '.nameCard',
-            '.priceCard',
-            1
-        )
-
-        products.sort((a: IProduct, b: IProduct) => parseFloat(a.price.split('R$ ')[1]) > parseFloat(b.price.split('R$ ')[1]) ? 1: -1)
-        res.send(products)
+       res.send('')
     } else {
         res.send('Method not allowed')
     }
