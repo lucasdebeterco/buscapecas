@@ -5,6 +5,7 @@ import {useState} from "react";
 import axios from "axios";
 import {IProduct} from "@/app/types/Product.types";
 import {MagnifyingGlass} from "@phosphor-icons/react";
+import { getApiHost } from '@/app/utils/getApiHost';
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
@@ -12,8 +13,9 @@ export function ProductList() {
 
     async function getProducts(e: any) {
         e.preventDefault();
-        setIsLoading(true);
-        axios.get(`http://localhost:3000/products?searchItem=${e.target.searchItem.value}`)
+        setIsLoading(true)
+
+        axios.get(`${getApiHost()}products?searchItem=${e.target.searchItem.value}`)
             .then((response: any) => {
                 console.log(response)
                 setProductList(response.data)
