@@ -13,8 +13,9 @@ export function ProductList() {
     async function getProducts(e: any) {
         e.preventDefault();
         setIsLoading(true);
-        axios.get(`/api/scrapper?searchItem=${e.target.searchItem.value}`)
+        axios.get(`http://localhost:3000/products?searchItem=${e.target.searchItem.value}`)
             .then((response: any) => {
+                console.log(response)
                 setProductList(response.data)
             }).catch((error: any) => {
                 console.error("Error:", error);
