@@ -1,11 +1,13 @@
 'use client'
 
-import {v4 as uuidv4} from "uuid";
-import {useState} from "react";
+import { Loader } from '@/app/components/Loader/Loader';
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 import axios from "axios";
-import {IProduct} from "@/app/types/Product.types";
-import {MagnifyingGlass} from "@phosphor-icons/react";
+import { IProduct } from "@/app/types/Product.types";
+import { MagnifyingGlass } from "@phosphor-icons/react";
 import { getApiHost } from '@/app/utils/getApiHost';
+import { SearchForProduct } from '@/app/components/SearchForProduct';
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
@@ -41,7 +43,7 @@ export function ProductList() {
             </form>
 
             { isLoading ? (
-                <>Carregando</>
+                <Loader />
             ) : productList.length ? (
                 <div className='productList grid grid-cols-5 gap-6 my-8'>
                     {productList.map((product:IProduct) => {
@@ -67,7 +69,7 @@ export function ProductList() {
                     })}
                 </div>
             ) : (
-                <strong>Nenhum resultado encontrado</strong>
+                <SearchForProduct />
             )}
         </div>
     )
