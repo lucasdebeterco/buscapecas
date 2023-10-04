@@ -22,6 +22,12 @@ export default function Home() {
         });
     }, [])
 
+    function addLike(loja: number) {
+        axios.put(`${getApiHost()}addLike`, {
+            loja: loja
+        })
+    }
+
     return (
         <>
             { isLoading ? (
@@ -36,6 +42,7 @@ export default function Home() {
                             <div key={loja.id}>
                                 Nome: {loja.nome}
                                 Likes: {loja.likes}
+                                <button onClick={() => addLike(loja.id)}>Curtir Loja</button>
                             </div>
                         ))}
                     </div>
