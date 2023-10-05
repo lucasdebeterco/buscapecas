@@ -11,7 +11,7 @@ export default function Home() {
     let [lojas, setLojas]  = useState([])
     let [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
+    function fetchLojas() {
         axios.get(`${getApiHost()}lojas`)
             .then((response: any) => {
                 setLojas(response.data)
@@ -20,11 +20,17 @@ export default function Home() {
         }).finally(() => {
             setIsLoading(false)
         });
+    }
+
+    useEffect(() => {
+        fetchLojas()
     }, [])
 
     function addLike(loja: number) {
         axios.put(`${getApiHost()}addLike`, {
             loja: loja
+        }).then(() => {
+            fetchLojas()
         })
     }
 
