@@ -8,44 +8,20 @@ import { IProduct } from "@/app/types/Product.types";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { getApiHost } from '@/app/utils/getApiHost';
 import { SearchForProduct } from '@/app/components/SearchForProduct';
+import { SearchForm } from '@/app/components/SearchForm';
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
 
-    async function getProducts(e: any) {
-        e.preventDefault();
-        setIsLoading(true)
-
-        axios.get(`${getApiHost()}products?searchItem=${e.target.searchItem.value}`)
-            .then((response: any) => {
-                console.log(response)
-                setProductList(response.data)
-            }).catch((error: any) => {
-                console.error("Error:", error);
-            }).finally(() => {
-            setIsLoading(false)
-        });
-    }
-
     return (
-        <div className='max-w-[1240px] px-4 my-0 mx-[auto] min-h-[90vh]'>
-            <form onSubmit={getProducts} className='flex column items-center mt-8' action='#'>
-                <label htmlFor='searchItem'></label>
-                <input type='text'
-                       name='searchItem'
-                       placeholder='Pesquisar item..'
-                       className='outline-0 border-[1px] h-[36px] py-1 px-4 rounded-[8px]'
-                />
-                <button className='h-[36px] px-3 ml-2 bg-red-500 text-white rounded-[8px] hover:bg-red-600 cursor-pointer transition' name='submit' type='submit'>
-                    <MagnifyingGlass color='#fff' size={20} />
-                </button>
-            </form>
+        <div className='px-[48px] my-0 min-h-[90vh]'>
+            <SearchForm setProductList={setProductList} setIsLoading={setIsLoading} />
 
             { isLoading ? (
                 <Loader />
             ) : productList.length ? (
-                <div className='productList grid grid-cols-5 gap-6 my-8'>
+                <div className='productList max-w-[1240px] mx-[auto] grid grid-cols-5 gap-6 my-8'>
                     {productList.map((product:IProduct) => {
                         return (
                             <div key={uuidv4()} className='flex flex-col justify-between border-[2px] hover:border-red-600 p-4 rounded-2xl'>
