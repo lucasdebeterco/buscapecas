@@ -1,18 +1,27 @@
 'use client'
 
-import { Loader } from '@/app/components/Loader/Loader';
-import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
-import axios from "axios";
-import { IProduct } from "@/app/types/Product.types";
-import { MagnifyingGlass } from "@phosphor-icons/react";
-import { getApiHost } from '@/app/utils/getApiHost';
-import { SearchForProduct } from '@/app/components/SearchForProduct';
-import { SearchForm } from '@/app/components/SearchForm';
+import { Loader } from '@/app/components/Loader/Loader'
+import { v4 as uuidv4 } from 'uuid'
+import { useState } from 'react'
+import axios from 'axios'
+import { IProduct } from '@/app/types/Product.types'
+import { Star } from '@phosphor-icons/react'
+import { getApiHost } from '@/app/utils/getApiHost'
+import { SearchForProduct } from '@/app/components/SearchForProduct'
+import { SearchForm } from '@/app/components/SearchForm'
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
+
+    function addLike(loja: number, rating: number) {
+        axios.put(`${getApiHost()}addLike`, {
+            loja: loja,
+            rating: rating
+        }).then(() => {
+            alert(`Loja ${loja} avaliada com sucesso`)
+        })
+    }
 
     return (
         <div className='px-[48px] my-0 min-h-[90vh]'>
@@ -29,7 +38,19 @@ export function ProductList() {
                                     <div className='flex justify-center items-center'>
                                         <img className='w-full h-auto' src={product.image} />
                                     </div>
-                                    <img src={`/images/lojas/iconeLoja${product.lojaId}.svg`} alt='Icone Loja' width={50} height={40} />
+                                    <>
+                                        <img src={`/images/lojas/iconeLoja${product.lojaId}.svg`} alt='Icone Loja' width={50} height={40} />
+
+                                        <div>
+                                            <button onClick={() => addLike(product.lojaId, 1)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addLike(product.lojaId, 2)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addLike(product.lojaId, 3)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addLike(product.lojaId, 4)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addLike(product.lojaId, 5)}><Star weight='fill' color='#f59e0b' /></button>
+                                        </div>
+
+                                    </>
+
                                     <span className='text-[0.825rem] font-bold h-[58px] mt-1 overflow-hidden'>{product.title}</span>
                                     <span className='text-[0.825rem] font-bold text-red-600 mt-2'>{product.price}</span>
                                 </>
