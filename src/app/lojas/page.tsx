@@ -26,8 +26,8 @@ export default function Home() {
         fetchLojas()
     }, [])
 
-    function addLike(loja: number) {
-        axios.put(`${getApiHost()}addLike`, {
+    function addRating(loja: number) {
+        axios.put(`${getApiHost()}addRating`, {
             loja: loja
         }).then(() => {
             fetchLojas()
@@ -48,7 +48,7 @@ export default function Home() {
                             <div key={loja.id}>
                                 Nome: {loja.nome}
                                 Likes: {loja.likes}
-                                <button onClick={() => addLike(loja.id)}>Curtir Loja</button>
+                                <button onClick={() => addRating(loja.id)}>Curtir Loja</button>
                             </div>
                         ))}
                     </div>

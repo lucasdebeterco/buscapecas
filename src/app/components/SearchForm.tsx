@@ -15,7 +15,6 @@ export function SearchForm({ setProductList, setIsLoading }: ISearchForm) {
 
         axios.get(`${getApiHost()}products?searchItem=${e.target.searchItem.value}`)
             .then((response: any) => {
-                console.log(response)
                 setProductList(response.data)
             }).catch((error: any) => {
             console.error("Error:", error);

@@ -14,8 +14,8 @@ export function ProductList() {
     let [productList, setProductList]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
 
-    function addLike(loja: number, rating: number) {
-        axios.put(`${getApiHost()}addLike`, {
+    function addRating(loja: number, rating: number) {
+        axios.put(`${getApiHost()}addRating`, {
             loja: loja,
             rating: rating
         }).then(() => {
@@ -39,14 +39,14 @@ export function ProductList() {
                                         <img className='w-full h-auto' src={product.image} />
                                     </div>
                                     <>
-                                        <img src={`/images/lojas/iconeLoja${product.lojaId}.svg`} alt='Icone Loja' width={50} height={40} />
+                                        <img src={`/images/lojas/iconeLoja${product.lojaId}.png`} alt='Icone Loja' width={50} height={40} className='rounded-sm' />
 
                                         <div>
-                                            <button onClick={() => addLike(product.lojaId, 1)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addLike(product.lojaId, 2)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addLike(product.lojaId, 3)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addLike(product.lojaId, 4)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addLike(product.lojaId, 5)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(product.lojaId, 1)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(product.lojaId, 2)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(product.lojaId, 3)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(product.lojaId, 4)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(product.lojaId, 5)}><Star weight='fill' color='#f59e0b' /></button>
                                         </div>
 
                                     </>
