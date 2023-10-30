@@ -14,10 +14,10 @@ export function ProductList() {
     let [productList, setProductList]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
 
-    function addRating(loja: number, rating: number) {
+    function addRating(rating: number, loja: number) {
         axios.put(`${getApiHost()}addRating`, {
+            rating: rating,
             loja: loja,
-            rating: rating
         }).then(() => {
             alert(`Loja ${loja} avaliada com sucesso`)
         })
@@ -42,11 +42,11 @@ export function ProductList() {
                                         <img src={`/images/lojas/iconeLoja${product.lojaId}.png`} alt='Icone Loja' width={50} height={40} className='rounded-sm' />
 
                                         <div>
-                                            <button onClick={() => addRating(product.lojaId, 1)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(product.lojaId, 2)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(product.lojaId, 3)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(product.lojaId, 4)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(product.lojaId, 5)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(1, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(2, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(3, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(4, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
+                                            <button onClick={() => addRating(5, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
                                         </div>
 
                                     </>

@@ -26,14 +26,6 @@ export default function Home() {
         fetchLojas()
     }, [])
 
-    function addRating(loja: number) {
-        axios.put(`${getApiHost()}addRating`, {
-            loja: loja
-        }).then(() => {
-            fetchLojas()
-        })
-    }
-
     return (
         <>
             { isLoading ? (
@@ -41,16 +33,25 @@ export default function Home() {
             ) : (
                 <div>
                     <Header />
-                    <div className='max-w-[1240px] px-4 my-0 mx-[auto] min-h-[90vh]'>
-                        <h1>Lojas</h1>
+                    <div className='max-w-[1240px] px-4 my-0 mx-[auto] min-h-[90vh] py-[32px]'>
+                        <h1 className='font-bold text-[20px] text-red-500'>Lojas</h1>
 
-                        {lojas.map((loja: any) => (
-                            <div key={loja.id}>
-                                Nome: {loja.nome}
-                                Likes: {loja.likes}
-                                <button onClick={() => addRating(loja.id)}>Curtir Loja</button>
-                            </div>
-                        ))}
+                        <div className='grid grid-cols-4 gap-[16px] mt-[16px]'>
+                            {lojas.map((loja: any) => (
+                                <div key={loja.id} className='border-[1px] border-gray-200 rounded-lg p-[16px]'>
+                                    <strong>{loja.nome}</strong>
+
+                                    <div>
+                                        {loja.ratingCount ? (
+                                            <span>Nota: { loja.rating / loja.ratingCount }</span>
+                                        ) : (
+                                            <span>Esta loja ainda não possui avaliações!</span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
                     </div>
                     <Footer />
                 </div>
