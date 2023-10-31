@@ -35,10 +35,10 @@ export function ProductList() {
                         return (
                             <div key={uuidv4()} className='flex flex-col justify-between border-[2px] hover:border-red-600 p-4 rounded-2xl'>
                                 <>
-                                    <div className='flex justify-center items-center'>
+                                    <div className='flex justify-center items-center h-[192px]'>
                                         <img className='w-full h-auto' src={product.image} />
                                     </div>
-                                    <>
+                                    <div className='flex justify-between items-center mb-[8px]'>
                                         <img src={`/images/lojas/iconeLoja${product.lojaId}.png`} alt='Icone Loja' width={50} height={40} className='rounded-sm' />
 
                                         <div>
@@ -49,7 +49,7 @@ export function ProductList() {
                                             <button onClick={() => addRating(5, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
                                         </div>
 
-                                    </>
+                                    </div>
 
                                     <span className='text-[0.825rem] font-bold h-[58px] mt-1 overflow-hidden'>{product.title}</span>
                                     <span className='text-[0.825rem] font-bold text-red-600 mt-2'>{product.price}</span>
