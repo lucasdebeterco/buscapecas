@@ -17,10 +17,10 @@ export function SearchForm({ setProductList, setIsLoading }: ISearchForm) {
             .then((response: any) => {
                 setProductList(response.data)
             }).catch((error: any) => {
-            console.error("Error:", error);
-        }).finally(() => {
-            setIsLoading(false)
-        });
+                    console.error("Error:", error);
+            }).finally(() => {
+                setIsLoading(false)
+            })
     }
 
     return (

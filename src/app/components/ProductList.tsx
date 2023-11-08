@@ -48,11 +48,10 @@ export function ProductList() {
                                             <button onClick={() => addRating(4, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
                                             <button onClick={() => addRating(5, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
                                         </div>
-
                                     </div>
 
                                     <span className='text-[0.825rem] font-bold h-[58px] mt-1 overflow-hidden'>{product.title}</span>
-                                    <span className='text-[0.825rem] font-bold text-red-600 mt-2'>{product.price}</span>
+                                    <span className='text-[0.825rem] font-bold text-red-600 mt-2'>R$ {product.price}</span>
                                 </>
                                 <a
                                     href={product.link}
