@@ -10,6 +10,9 @@ import { getApiHost } from '@/app/utils/getApiHost'
 import { SearchForProduct } from '@/app/components/SearchForProduct'
 import { SearchForm } from '@/app/components/SearchForm'
 
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+
 export function ProductList() {
     let [productList, setProductList]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
@@ -22,6 +25,8 @@ export function ProductList() {
             alert(`Loja ${loja} avaliada com sucesso`)
         })
     }
+
+    const [value, setValue] = useState<number | null>(0);
 
     return (
         <div className='px-[48px] my-0 min-h-[90vh]'>
@@ -41,13 +46,21 @@ export function ProductList() {
                                     <div className='flex justify-between items-center mb-[8px]'>
                                         <img src={`/images/lojas/iconeLoja${product.lojaId}.png`} alt='Icone Loja' width={50} height={40} className='rounded-sm' />
 
-                                        <div>
-                                            <button onClick={() => addRating(1, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(2, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(3, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(4, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
-                                            <button onClick={() => addRating(5, product.lojaId)}><Star weight='fill' color='#f59e0b' /></button>
-                                        </div>
+                                        <Box
+                                            sx={{
+                                                '& > legend': { mt: 2 },
+                                            }}
+                                        >
+                                            <Rating
+                                                name="simple-controlled"
+                                                value={value}
+                                                onChange={(event, newValue) => {
+                                                    setValue(newValue);
+                                                    newValue && addRating(newValue, product.lojaId)
+                                                }}
+                                            />
+
+                                        </Box>
                                     </div>
 
                                     <span className='text-[0.825rem] font-bold h-[58px] mt-1 overflow-hidden'>{product.title}</span>
