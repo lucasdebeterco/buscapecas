@@ -1,10 +1,10 @@
 'use client';
 
-import {Header} from "@/app/components/Header"
-import {Footer} from "@/app/components/Footer"
+import axios from 'axios'
+import {Header} from '@/app/components/Header'
+import {Footer} from '@/app/components/Footer'
 import { useEffect, useState } from 'react'
 import { getApiHost } from '@/app/utils/getApiHost'
-import axios from 'axios'
 import { Loader } from '@/app/components/Loader/Loader'
 
 export default function Home() {

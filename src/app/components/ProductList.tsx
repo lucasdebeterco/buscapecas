@@ -2,19 +2,27 @@
 
 import { Loader } from '@/app/components/Loader/Loader'
 import { v4 as uuidv4 } from 'uuid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { IProduct } from '@/app/types/Product.types'
-import { Star } from '@phosphor-icons/react'
 import { getApiHost } from '@/app/utils/getApiHost'
 import { SearchForProduct } from '@/app/components/SearchForProduct'
 import { SearchForm } from '@/app/components/SearchForm'
 
-import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box'
+import Rating from '@mui/material/Rating'
+
+interface ILoja {
+    id: number
+    nome: string
+    notaReclameAqui: number
+    rating: number
+    ratingCount: number
+}
 
 export function ProductList() {
     let [productList, setProductList]  = useState([])
+    let [lojas, setLojas]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
 
     function addRating(rating: number, loja: number) {
@@ -26,7 +34,22 @@ export function ProductList() {
         })
     }
 
-    const [value, setValue] = useState<number | null>(0);
+    async function fetchLojas() {
+        await axios.get(`${getApiHost()}lojas`)
+            .then((response: any) => {
+                setLojas(response.data)
+            }).catch((error: any) => {
+            console.error("Error:", error);
+        }).finally(() => {
+            setIsLoading(false)
+        });
+    }
+
+    useEffect(() => {
+        fetchLojas()
+    }, [])
+
+    console.log(lojas)
 
     return (
         <div className='px-[48px] my-0 min-h-[90vh]'>
@@ -34,9 +57,11 @@ export function ProductList() {
 
             { isLoading ? (
                 <Loader />
-            ) : productList.length ? (
+            ) : (productList.length && lojas.length) ? (
                 <div className='productList max-w-[1240px] mx-[auto] grid grid-cols-5 gap-6 my-8'>
                     {productList.map((product:IProduct) => {
+                        const lojaFiltered: ILoja = lojas.filter((loja: ILoja) => product.lojaId == loja.id)[0]
+                        console.log(lojaFiltered)
                         return (
                             <div key={uuidv4()} className='flex flex-col justify-between border-[2px] hover:border-red-600 p-4 rounded-2xl'>
                                 <>
@@ -46,20 +71,14 @@ export function ProductList() {
                                     <div className='flex justify-between items-center mb-[8px]'>
                                         <img src={`/images/lojas/iconeLoja${product.lojaId}.png`} alt='Icone Loja' width={50} height={40} className='rounded-sm' />
 
-                                        <Box
-                                            sx={{
-                                                '& > legend': { mt: 2 },
-                                            }}
-                                        >
+                                        <Box sx={{'& > legend': { mt: 2 },}}>
                                             <Rating
                                                 name="simple-controlled"
-                                                value={value}
+                                                value={((lojaFiltered.rating / lojaFiltered.ratingCount) + (lojaFiltered.notaReclameAqui/2)) / 2}
                                                 onChange={(event, newValue) => {
-                                                    setValue(newValue);
                                                     newValue && addRating(newValue, product.lojaId)
                                                 }}
                                             />
-
                                         </Box>
                                     </div>
 
