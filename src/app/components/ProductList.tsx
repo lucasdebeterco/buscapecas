@@ -25,7 +25,7 @@ export function ProductList() {
     let [lojas, setLojas]  = useState([])
     let [isLoading, setIsLoading] = useState(false)
 
-    function addRating(rating: number, loja: number) {
+    async function addRating(rating: number, loja: number) {
         axios.put(`${getApiHost()}addRating`, {
             rating: rating,
             loja: loja,
@@ -49,8 +49,6 @@ export function ProductList() {
         fetchLojas()
     }, [])
 
-    console.log(lojas)
-
     return (
         <div className='px-[48px] my-0 min-h-[90vh]'>
             <SearchForm setProductList={setProductList} setIsLoading={setIsLoading} />
@@ -61,7 +59,7 @@ export function ProductList() {
                 <div className='productList max-w-[1240px] mx-[auto] grid grid-cols-5 gap-6 my-8'>
                     {productList.map((product:IProduct) => {
                         const lojaFiltered: ILoja = lojas.filter((loja: ILoja) => product.lojaId == loja.id)[0]
-                        console.log(lojaFiltered)
+
                         return (
                             <div key={uuidv4()} className='flex flex-col justify-between border-[2px] hover:border-red-600 p-4 rounded-2xl'>
                                 <>
@@ -75,8 +73,8 @@ export function ProductList() {
                                             <Rating
                                                 name="simple-controlled"
                                                 value={((lojaFiltered.rating / lojaFiltered.ratingCount) + (lojaFiltered.notaReclameAqui/2)) / 2}
-                                                onChange={(event, newValue) => {
-                                                    newValue && addRating(newValue, product.lojaId)
+                                                onChange={async (event, newValue) => {
+                                                    newValue && await addRating(newValue, product.lojaId)
                                                 }}
                                             />
                                         </Box>
