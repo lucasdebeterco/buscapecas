@@ -81,7 +81,9 @@ export function ProductList() {
                                     </div>
 
                                     <span className='text-[0.825rem] font-bold h-[58px] mt-1 overflow-hidden'>{product.title}</span>
-                                    <span className='text-[0.825rem] font-bold text-red-600 mt-2'>R$ {product.price}</span>
+                                    <span className='text-[0.825rem] font-bold text-red-600 mt-2'>R$ {
+                                        String(product.price).substring(0, String(product.price).length-2) + "," + String(product.price).substring(String(product.price).length-2)
+                                    }</span>
                                 </>
                                 <a
                                     href={product.link}

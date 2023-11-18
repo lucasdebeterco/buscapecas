@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5d4cbbf-913d-4ad5-aa13-82481f3fa013" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../buscapeca-api/src/crawler/crawler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../buscapeca-api/src/crawler/crawler.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/SearchForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/SearchForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/lojas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/lojas/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +98,12 @@
       <workItem from="1698605047720" duration="5780000" />
       <workItem from="1698629773287" duration="12264000" />
       <workItem from="1699066902496" duration="594000" />
+      <workItem from="1699396097553" duration="12730000" />
+      <workItem from="1699704922144" duration="587000" />
+      <workItem from="1700060228531" duration="36000" />
+      <workItem from="1700060299792" duration="43000" />
+      <workItem from="1700082377917" duration="5852000" />
+      <workItem from="1700187563397" duration="3706000" />
     </task>
     <servers />
   </component>
